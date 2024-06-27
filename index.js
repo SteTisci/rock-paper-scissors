@@ -67,7 +67,7 @@ function playRound() {
 function playGame() {
   // Alert for the start of the game
   alert(
-    "\nROCK - PAPER - SCISSORS\n\nRules:\n- Best of five rounds\n- Who has the most point by the end wins!\n- Draws doesn't count"
+    "\nROCK - PAPER - SCISSORS\n\nRules:\n\n- Best of 5 rounds\n- Who has the most point by the end wins!\n- Draws get no points and restart the round"
   );
   do {
     while (rounds < 5 && playerScore < 3 && computerScore < 3) {
