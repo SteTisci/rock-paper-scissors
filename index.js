@@ -65,9 +65,9 @@ function playGame() {
   let roundResult = playRound();
 
   if (roundResult === "You win!") {
-    playerScore++;
+    ++playerScore;
   } else if (roundResult === "You lose") {
-    computerScore++;
+    ++computerScore;
   }
   alert(`Scores => Player: ${playerScore} - Computer: ${computerScore}`);
 }
@@ -77,7 +77,7 @@ alert(
 );
 
 do {
-  while (rounds < 5 && (playerScore < 3 || computerScore < 3)) {
+  while (rounds < 5 && playerScore < 3 && computerScore < 3) {
     playGame();
   }
 
