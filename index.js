@@ -42,34 +42,25 @@ function evaluateResult(computerChoice, playerChoice) {
   }
 }
 
-function playRound() {
+function playGame() {
   let computerChoice = getComputerChoice();
   let playerChoice = getHumanChoice();
   let roundResult = evaluateResult(computerChoice, playerChoice);
 
-  // incrementing the rounds only if someone wins
-  if (roundResult !== "That's a draw" && playerChoice !== undefined) {
-    ++rounds;
-  }
-
   // check for correct input
   if (playerChoice !== undefined) {
+    // Incrementing score only if someone wins
+    if (roundResult === "You win!") {
+      ++playerScore;
+    } else if (roundResult === "You lose") {
+      ++computerScore;
+    }
+
     alert(
-      `Computer: ${computerChoice}\nPlayer: ${playerChoice}\nResult: ${roundResult}`
+      `Computer: ${computerChoice}\nPlayer: ${playerChoice}\nResult: ${roundResult}\n\nScores => Player: ${playerScore} - Computer: ${computerScore}`
     );
-    return roundResult;
   }
-}
-
-function playGame() {
-  let roundResult = playRound();
-
-  if (roundResult === "You win!") {
-    ++playerScore;
-  } else if (roundResult === "You lose") {
-    ++computerScore;
-  }
-  alert(`Scores => Player: ${playerScore} - Computer: ${computerScore}`);
+  rounds = playerScore + computerScore;
 }
 
 alert(
