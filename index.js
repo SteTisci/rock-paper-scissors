@@ -2,7 +2,7 @@ const choices = ["rock", "paper", "scissors"]; // possible choices
 const results = ["You win!", "That's a draw", "You lose"]; // possible results
 let computerScore = 0;
 let playerScore = 0;
-let playAgain;
+let rounds = 0;
 
 function getComputerChoice() {
   let computerChoice = Math.floor(Math.random() * 3);
@@ -47,6 +47,11 @@ function playRound() {
   let playerChoice = getHumanChoice();
   let roundResult = evaluateResult(computerChoice, playerChoice);
 
+  // incrementing the rounds only if someone wins
+  if (roundResult !== "That's a draw" && playerChoice !== undefined) {
+    ++rounds;
+  }
+
   // check for correct input
   if (playerChoice !== undefined) {
     alert(
@@ -60,27 +65,30 @@ function playGame() {
   let roundResult = playRound();
 
   if (roundResult === "You win!") {
-    ++playerScore;
+    playerScore++;
   } else if (roundResult === "You lose") {
-    ++computerScore;
+    computerScore++;
   }
   alert(`Scores => Player: ${playerScore} - Computer: ${computerScore}`);
 }
 
-do {
-  // First to reach five points win
-  while (playerScore < 5 && computerScore < 5) {
-    playGame();
+alert(
+  "\nROCK - PAPER - SCISSORS\n\nRules:\n- Best of five rounds\n- Who has the most point by the end wins!\n- Draws doesn't count"
+);
 
-    if (playerScore === 5) {
-      alert(`Congratulations! ${results[0]}`); // game win
-    } else if (computerScore === 5) {
-      alert(`${results[2]} Better luck next time!`); // game lost
-    }
+do {
+  while (rounds < 5 && (playerScore < 3 || computerScore < 3)) {
+    playGame();
   }
-  // reset scores
+
+  if (playerScore > computerScore) {
+    alert(`Congratulations! ${results[0]}`); // game win
+  } else if (computerScore > playerScore) {
+    alert(`${results[2]} Better luck next time!`); // game lost
+  }
+
+  // reset scores and rounds
   playerScore = 0;
   computerScore = 0;
-
-  playAgain = prompt("do you want to play again? (yes/no)").toLowerCase();
-} while (playAgain !== "no");
+  rounds = 0;
+} while (confirm("do you want to play again?"));
