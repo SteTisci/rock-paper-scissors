@@ -12,7 +12,6 @@ let rounds = 0;
 
 function getComputerChoice() {
   let randomIndex = Math.floor(Math.random() * 3);
-
   return choices[randomIndex];
 }
 
@@ -70,7 +69,6 @@ function playGame() {
   alert(
     "\nROCK - PAPER - SCISSORS\n\nRules:\n- Best of five rounds\n- Who has the most point by the end wins!\n- Draws doesn't count"
   );
-
   do {
     while (rounds < 5 && playerScore < 3 && computerScore < 3) {
       playRound();
@@ -78,7 +76,7 @@ function playGame() {
 
     if (playerScore > computerScore) {
       alert("Congratulations! You win!");
-    } else if (computerScore > playerScore) {
+    } else {
       alert("You lose! Better luck next time!");
     }
 
