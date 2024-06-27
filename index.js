@@ -1,13 +1,19 @@
-const choices = ["rock", "paper", "scissors"]; // possible choices
-const results = ["You win!", "That's a draw", "You lose"]; // possible results
+// possible choices
+const choices = ["rock", "paper", "scissors"];
+// Possible outcomes for the player to win
+const winningConditions = {
+  rock: "scissors",
+  paper: "rock",
+  scissors: "paper",
+};
 let computerScore = 0;
 let playerScore = 0;
 let rounds = 0;
 
 function getComputerChoice() {
-  let computerChoice = Math.floor(Math.random() * 3);
+  let randomIndex = Math.floor(Math.random() * 3);
 
-  return choices[computerChoice];
+  return choices[randomIndex];
 }
 
 function getHumanChoice() {
@@ -15,71 +21,69 @@ function getHumanChoice() {
     "What is your choice? Rock / Paper / Scissors"
   ).toLowerCase();
 
-  switch (input) {
-    case "rock":
-      return choices[0]; // rock
-    case "paper":
-      return choices[1]; // paper
-    case "scissors":
-      return choices[2]; // scissors
-    default:
-      alert("Input not valid! please enter Rock, Paper or Scissors");
-      return;
+  if (choices.includes(input)) {
+    return input;
+  } else {
+    alert("Input not valid! Please enter Rock, Paper or Scissors");
+    return undefined;
   }
 }
 
 function evaluateResult(computerChoice, playerChoice) {
-  if (
-    (playerChoice === "rock" && computerChoice === "scissors") ||
-    (playerChoice === "paper" && computerChoice === "rock") ||
-    (playerChoice === "scissors" && computerChoice === "paper")
-  ) {
-    return results[0]; // win
+  if (winningConditions[playerChoice] === computerChoice) {
+    return "You win!";
   } else if (playerChoice === computerChoice) {
-    return results[1]; // draw
+    return "That's a draw";
   } else {
-    return results[2]; // lose
+    return "You lose";
   }
 }
 
-function playGame() {
-  let computerChoice = getComputerChoice();
-  let playerChoice = getHumanChoice();
-  let roundResult = evaluateResult(computerChoice, playerChoice);
-
-  // check for correct input
-  if (playerChoice !== undefined) {
-    // Incrementing score only if someone wins
-    if (roundResult === "You win!") {
-      ++playerScore;
-    } else if (roundResult === "You lose") {
-      ++computerScore;
-    }
-
-    alert(
-      `Computer: ${computerChoice}\nPlayer: ${playerChoice}\nResult: ${roundResult}\n\nScores => Player: ${playerScore} - Computer: ${computerScore}`
-    );
-  }
-  rounds = playerScore + computerScore;
-}
-
-alert(
-  "\nROCK - PAPER - SCISSORS\n\nRules:\n- Best of five rounds\n- Who has the most point by the end wins!\n- Draws doesn't count"
-);
-
-do {
-  while (rounds < 5 && playerScore < 3 && computerScore < 3) {
-    playGame();
-  }
-
-  if (playerScore > computerScore) {
-    alert(`Congratulations! ${results[0]}`); // game win
-  } else if (computerScore > playerScore) {
-    alert(`${results[2]} Better luck next time!`); // game lost
-  }
-
-  // reset scores and rounds
+function resetScore() {
   playerScore = 0;
   computerScore = 0;
   rounds = 0;
-} while (confirm("do you want to play again?"));
+}
+
+function playRound() {
+  const computerChoice = getComputerChoice();
+  const playerChoice = getHumanChoice();
+
+  if (!playerChoice) return; // Stop the round if the input is invalid
+
+  const roundResult = evaluateResult(computerChoice, playerChoice);
+
+  if (roundResult === "You win!") {
+    playerScore++;
+  } else if (roundResult === "You lose") {
+    computerScore++;
+  }
+
+  alert(
+    `Computer => ${computerChoice}\nPlayer => ${playerChoice}\n\n${roundResult}\n\nSCORE\n\nComputer: ${computerScore}\nPlayer: ${playerScore}`
+  );
+  rounds = playerScore + computerScore;
+}
+
+function playGame() {
+  // Alert for the start of the game
+  alert(
+    "\nROCK - PAPER - SCISSORS\n\nRules:\n- Best of five rounds\n- Who has the most point by the end wins!\n- Draws doesn't count"
+  );
+
+  do {
+    while (rounds < 5 && playerScore < 3 && computerScore < 3) {
+      playRound();
+    }
+
+    if (playerScore > computerScore) {
+      alert("Congratulations! You win!");
+    } else if (computerScore > playerScore) {
+      alert("You lose! Better luck next time!");
+    }
+
+    resetScore();
+  } while (confirm("do you want to play again?"));
+}
+
+playGame();
