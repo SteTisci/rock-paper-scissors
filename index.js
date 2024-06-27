@@ -23,19 +23,19 @@ function getHumanChoice() {
     case "scissors":
       return choices[2]; // scissors
     default:
-      alert("Input not valid!");
+      alert("Input not valid! please enter Rock, Paper or Scissors");
       return;
   }
 }
 
-function evaluateResult(computerSelection, humanSelection) {
+function evaluateResult(computerChoice, playerChoice) {
   if (
-    (humanSelection === "rock" && computerSelection === "scissors") ||
-    (humanSelection === "paper" && computerSelection === "rock") ||
-    (humanSelection === "scissors" && computerSelection === "paper")
+    (playerChoice === "rock" && computerChoice === "scissors") ||
+    (playerChoice === "paper" && computerChoice === "rock") ||
+    (playerChoice === "scissors" && computerChoice === "paper")
   ) {
     return results[0]; // win
-  } else if (humanSelection === computerSelection) {
+  } else if (playerChoice === computerChoice) {
     return results[1]; // draw
   } else {
     return results[2]; // lose
@@ -43,14 +43,14 @@ function evaluateResult(computerSelection, humanSelection) {
 }
 
 function playRound() {
-  let computerSelection = getComputerChoice();
-  let humanSelection = getHumanChoice();
-  let roundResult = evaluateResult(computerSelection, humanSelection);
+  let computerChoice = getComputerChoice();
+  let playerChoice = getHumanChoice();
+  let roundResult = evaluateResult(computerChoice, playerChoice);
 
   // check for correct input
-  if (humanSelection !== undefined) {
+  if (playerChoice !== undefined) {
     alert(
-      `Computer: ${computerSelection}\nPlayer: ${humanSelection}\nResult: ${roundResult}`
+      `Computer: ${computerChoice}\nPlayer: ${playerChoice}\nResult: ${roundResult}`
     );
     return roundResult;
   }
