@@ -74,11 +74,10 @@ function playGame() {
       playRound();
     }
 
-    if (playerScore > computerScore) {
-      alert("Congratulations! You win!");
-    } else {
-      alert("You lose! Better luck next time!");
-    }
+    // Ternary operator for the game result
+    playerScore > computerScore
+      ? alert("Congratulations! You win!")
+      : alert("You lose! Better luck next time!");
 
     resetScore();
   } while (confirm("do you want to play again?"));
