@@ -1,17 +1,20 @@
+const resultDisplay = document.querySelector(".result");
+const scoreDisplay = document.querySelector(".score");
+const roundDisplay = document.querySelector(".rounds");
+
+let computerScore = 0;
+let playerScore = 0;
+let rounds = 0;
+
 // possible choices
 const choices = ["rock", "paper", "scissors"];
+
 // Possible outcomes for the player to win
 const winningConditions = {
   rock: "scissors",
   paper: "rock",
   scissors: "paper",
 };
-let computerScore = 0;
-let playerScore = 0;
-let rounds = 0;
-
-const choiceContainer = document.querySelector(".container");
-const resultTitle = document.querySelector(".result");
 
 function getComputerChoice() {
   let randomIndex = Math.floor(Math.random() * 3);
@@ -39,6 +42,12 @@ function resetScore() {
   rounds = 0;
 }
 
+function showGameInfo(roundResult, rounds, playerScore, computerScore) {
+  resultDisplay.textContent = roundResult;
+  scoreDisplay.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+  roundDisplay.textContent = rounds;
+}
+
 function playRound(event) {
   const computerChoice = getComputerChoice();
   const playerChoice = getHumanChoice(event);
@@ -52,11 +61,25 @@ function playRound(event) {
   } else if (roundResult === "You lose") {
     computerScore++;
   }
-
-  resultTitle.textContent = roundResult;
   rounds = playerScore + computerScore;
+  showGameInfo(roundResult, rounds, playerScore, computerScore);
 }
 
-choiceContainer.addEventListener("click", (click) => {
-  playRound(click);
-});
+function playGame() {
+  const choiceContainer = document.querySelector(".container");
+
+  choiceContainer.addEventListener("click", (click) => {
+    if (rounds < 5) {
+      playRound(click);
+    } else {
+      resultDisplay.textContent =
+        playerScore > computerScore
+          ? "Congratulations! You won the game!"
+          : "You lost. Better luck next time!";
+
+      resetScore();
+    }
+  });
+}
+
+playGame();
