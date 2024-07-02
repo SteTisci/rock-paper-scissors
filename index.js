@@ -10,22 +10,17 @@ let computerScore = 0;
 let playerScore = 0;
 let rounds = 0;
 
+const choiceContainer = document.querySelector(".container");
+const resultTitle = document.querySelector(".result");
+
 function getComputerChoice() {
   let randomIndex = Math.floor(Math.random() * 3);
   return choices[randomIndex];
 }
 
-function getHumanChoice() {
-  let input = prompt(
-    "What is your choice? Rock / Paper / Scissors"
-  ).toLowerCase();
-
-  if (choices.includes(input)) {
-    return input;
-  } else {
-    alert("Input not valid! Please enter Rock, Paper or Scissors");
-    return undefined;
-  }
+function getHumanChoice(event) {
+  let input = event.target.classList.value;
+  return input;
 }
 
 function evaluateResult(computerChoice, playerChoice) {
@@ -44,9 +39,9 @@ function resetScore() {
   rounds = 0;
 }
 
-function playRound() {
+function playRound(event) {
   const computerChoice = getComputerChoice();
-  const playerChoice = getHumanChoice();
+  const playerChoice = getHumanChoice(event);
 
   if (!playerChoice) return; // Stop the round if the input is invalid
 
@@ -58,29 +53,10 @@ function playRound() {
     computerScore++;
   }
 
-  alert(
-    `Computer => ${computerChoice}\nPlayer => ${playerChoice}\n\n${roundResult}\n\nSCORE\n\nComputer: ${computerScore}\nPlayer: ${playerScore}`
-  );
+  resultTitle.textContent = roundResult;
   rounds = playerScore + computerScore;
 }
 
-function playGame() {
-  // Alert for the start of the game
-  alert(
-    "\nROCK - PAPER - SCISSORS\n\nRules:\n\n- Best of 5 rounds\n- Who has the most point by the end wins!\n- Draws get no points and restart the round"
-  );
-  do {
-    while (rounds < 5 && playerScore < 3 && computerScore < 3) {
-      playRound();
-    }
-
-    // Ternary operator for the game result
-    playerScore > computerScore
-      ? alert("Congratulations! You win!")
-      : alert("You lose! Better luck next time!");
-
-    resetScore();
-  } while (confirm("do you want to play again?"));
-}
-
-playGame();
+choiceContainer.addEventListener("click", (click) => {
+  playRound(click);
+});
