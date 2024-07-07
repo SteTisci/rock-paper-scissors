@@ -1,4 +1,4 @@
 # Descrizione
 
-Gioco di carta, forbice, sasso senza pagina html usando alert e prompt JavaScript.
+Gioco di carta, forbice, sasso.
 Progetto realizzato seguendo il corso "The Odin Project".
