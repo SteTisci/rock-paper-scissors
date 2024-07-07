@@ -1,3 +1,4 @@
+const choiceContainer = document.querySelector(".choices");
 const resultDisplay = document.querySelector(".result");
 const scoreDisplay = document.querySelector(".score");
 const roundDisplay = document.querySelector(".rounds");
@@ -66,12 +67,11 @@ function playRound(event) {
 }
 
 function playGame() {
-  const choiceContainer = document.querySelector(".container");
-
   choiceContainer.addEventListener("click", (click) => {
     if (rounds < 5) {
       playRound(click);
-    } else {
+    }
+    if (rounds === 5) {
       resultDisplay.textContent =
         playerScore > computerScore
           ? "Congratulations! You won the game!"
