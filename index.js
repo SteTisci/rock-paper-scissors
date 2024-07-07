@@ -46,7 +46,7 @@ function resetScore() {
 function showGameInfo(roundResult, rounds, playerScore, computerScore) {
   resultDisplay.textContent = roundResult;
   scoreDisplay.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
-  roundDisplay.textContent = rounds;
+  roundDisplay.textContent = `Round ${rounds}`;
 }
 
 function playRound(event) {
