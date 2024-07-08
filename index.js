@@ -1,40 +1,34 @@
-const choiceContainer = document.querySelector(".choices");
-const resultDisplay = document.querySelector(".result");
-const scoreDisplay = document.querySelector(".score");
-const roundDisplay = document.querySelector(".rounds");
-
-let computerScore = 0;
 let playerScore = 0;
-let rounds = 0;
+let computerScore = 0;
+let roundWinner = "";
 
 // possible choices
 const choices = ["rock", "paper", "scissors"];
 
-// Possible outcomes for the player to win
-const winningConditions = {
-  rock: "scissors",
-  paper: "rock",
-  scissors: "paper",
-};
-
 function getComputerChoice() {
-  let randomIndex = Math.floor(Math.random() * 3);
+  const randomIndex = Math.floor(Math.random() * 3);
+
+  // returns a string at a random index from the choices array
   return choices[randomIndex];
 }
 
-function getHumanChoice(event) {
-  let input = event.target.classList.value;
-  return input;
-}
+function checkWinner(playerChoice, computerChoice) {
+  // Possible outcomes for the player to win
+  const winningConditions = {
+    rock: "scissors",
+    paper: "rock",
+    scissors: "paper",
+  };
+  let winner = "";
 
-function evaluateResult(computerChoice, playerChoice) {
   if (winningConditions[playerChoice] === computerChoice) {
-    return "You win!";
+    winner = "player";
   } else if (playerChoice === computerChoice) {
-    return "That's a draw";
+    winner = "tie";
   } else {
-    return "You lose";
+    winner = "computer";
   }
+  return winner;
 }
 
 function resetScore() {
@@ -43,43 +37,58 @@ function resetScore() {
   rounds = 0;
 }
 
-function showGameInfo(roundResult, rounds, playerScore, computerScore) {
-  resultDisplay.textContent = roundResult;
-  scoreDisplay.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
-  roundDisplay.textContent = `Round ${rounds}`;
-}
+function playRound(playerChoice) {
+  // Stop the round if the player input is invalid
+  if (!choices.includes(playerChoice)) return;
 
-function playRound(event) {
   const computerChoice = getComputerChoice();
-  const playerChoice = getHumanChoice(event);
+  let roundResult = "";
 
-  if (!playerChoice) return; // Stop the round if the input is invalid
+  roundWinner = checkWinner(playerChoice, computerChoice);
 
-  const roundResult = evaluateResult(computerChoice, playerChoice);
-
-  if (roundResult === "You win!") {
+  if (roundWinner === "tie") {
+    roundResult = "It's a tie";
+  } else if (roundWinner === "player") {
     playerScore++;
-  } else if (roundResult === "You lose") {
+    roundResult = "You win!";
+  } else {
     computerScore++;
+    roundResult = "You lose...";
   }
-  rounds = playerScore + computerScore;
-  showGameInfo(roundResult, rounds, playerScore, computerScore);
+  showRoundInfo(roundResult);
 }
 
-function playGame() {
-  choiceContainer.addEventListener("click", (click) => {
-    if (rounds < 5) {
-      playRound(click);
-    }
-    if (rounds === 5) {
-      resultDisplay.textContent =
-        playerScore > computerScore
-          ? "Congratulations! You won the game!"
-          : "You lost. Better luck next time!";
+function playGame(event) {
+  const playerChoice = event.target.classList.value;
 
-      resetScore();
-    }
-  });
+  playRound(playerChoice);
+  let gameOver = playerScore + computerScore >= 5;
+
+  // Check if the game is over after updating the scores
+  if (gameOver) {
+    showGameResult();
+    resetScore();
+  }
 }
 
-playGame();
+// User Interface
+
+const choiceContainer = document.querySelector(".choices");
+const resultTitle = document.querySelector(".result");
+const scoreParagraph = document.querySelector(".score");
+const roundParagraph = document.querySelector(".rounds");
+
+function showRoundInfo(roundResult) {
+  resultTitle.textContent = roundResult;
+  scoreParagraph.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+  roundParagraph.textContent = `Round ${playerScore + computerScore}`;
+}
+
+function showGameResult() {
+  resultTitle.textContent =
+    playerScore > computerScore
+      ? "Congratulations! You won the game!"
+      : "You lost... Better luck next time!";
+}
+
+choiceContainer.addEventListener("click", playGame);
