@@ -2,13 +2,13 @@ let playerScore = 0;
 let computerScore = 0;
 let roundWinner = "";
 
-// possible choices
+// Possible choices
 const choices = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * 3);
 
-  // returns a string at a random index from the choices array
+  // Returns a string at a random index from the choices array
   return choices[randomIndex];
 }
 
@@ -62,7 +62,7 @@ function playGame(event) {
   const playerChoice = event.target.classList.value;
 
   playRound(playerChoice);
-  let gameOver = playerScore + computerScore >= 5;
+  let gameOver = playerScore === 5 || computerScore === 5;
 
   // Check if the game is over after updating the scores
   if (gameOver) {
