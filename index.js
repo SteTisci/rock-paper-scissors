@@ -3,7 +3,7 @@ let computerScore = 0;
 let roundWinner = "";
 
 // Possible choices
-const choices = ["rock", "paper", "scissors"];
+const choices = ["fire", "water", "grass"];
 
 function getComputerChoice() {
   const randomIndex = Math.floor(Math.random() * 3);
@@ -15,9 +15,9 @@ function getComputerChoice() {
 function checkWinner(playerChoice, computerChoice) {
   // Possible outcomes for the player to win
   const winningConditions = {
-    rock: "scissors",
-    paper: "rock",
-    scissors: "paper",
+    fire: "grass",
+    water: "fire",
+    grass: "water",
   };
   let winner = "";
 
@@ -55,11 +55,16 @@ function playRound(playerChoice) {
     computerScore++;
     roundResult = "You lose...";
   }
+  showRoundChoice(playerChoice, computerChoice);
   showRoundInfo(roundResult);
 }
 
 function playGame(event) {
-  const playerChoice = event.target.classList.value;
+  const buttonElement = event.target.closest("button");
+
+  // Check if buttonElement is not null before accessing its classList
+  if (!buttonElement) return;
+  const playerChoice = buttonElement.classList.value;
 
   playRound(playerChoice);
   let gameOver = playerScore === 5 || computerScore === 5;
@@ -75,13 +80,41 @@ function playGame(event) {
 
 const choiceContainer = document.querySelector(".choices");
 const resultTitle = document.querySelector(".result");
-const scoreParagraph = document.querySelector(".score");
+const playerScoreParagraph = document.querySelector(".player-score");
+const playerChoiceImg = document.querySelector(".player-choice");
+const computerScoreParagraph = document.querySelector(".computer-score");
+const computerChoiceImg = document.querySelector(".computer-choice");
 const roundParagraph = document.querySelector(".rounds");
 
 function showRoundInfo(roundResult) {
   resultTitle.textContent = roundResult;
-  scoreParagraph.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+  playerScoreParagraph.textContent = `Player: ${playerScore}`;
+  computerScoreParagraph.textContent = `Computer: ${computerScore}`;
   roundParagraph.textContent = `Round ${playerScore + computerScore}`;
+}
+
+function showRoundChoice(playerChoice, computerChoice) {
+  switch (playerChoice) {
+    case "fire":
+      playerChoiceImg.setAttribute("src", "/images/fire.png");
+      break;
+    case "grass":
+      playerChoiceImg.setAttribute("src", "/images/grass.png");
+      break;
+    case "water":
+      playerChoiceImg.setAttribute("src", "/images/water.png");
+      break;
+  }
+  switch (computerChoice) {
+    case "fire":
+      computerChoiceImg.setAttribute("src", "/images/fire.png");
+      break;
+    case "grass":
+      computerChoiceImg.setAttribute("src", "/images/grass.png");
+      break;
+    case "water":
+      computerChoiceImg.setAttribute("src", "/images/water.png");
+  }
 }
 
 function showGameResult() {
