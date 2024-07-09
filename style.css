@@ -1,14 +1,88 @@
-body {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    line-height: 1.5rem;
+}
+
+body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url('/images/pokemon-background.jpeg');
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    margin-top: 50px;
+}
+
+.title-header {
+    display: flex;
     justify-content: center;
-    height: 500px;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 8%);
+}
+
+.title {
+    font-size: 40px;
+    font-weight: 1000;
+    color: #FFDF18;
+}
+
+.general-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 40px;
+    color: #FFFFFF;
+}
+
+.result {
+    font-size: 35px;
+    height: fit-content;
+    padding: 15px;
+}
+
+.round-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30%;
+    margin: 30px 0;
+}
+
+.player-info, .computer-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: fit-content;
+}
+
+.player-choice, .computer-choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.player-score, .computer-score {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+    color: #FFFFFF;
 }
 
 .choices {
@@ -18,25 +92,18 @@ body {
 }
 
 button {
-    padding: 20px;
-    font-size: 60px;
+    padding: 30px;
     border: none;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 20%);
+    background-color: transparent;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: rgba(0, 0, 0, 15%);
+    background-color: #21366da6;
 }
 
 button:active {
-    background-color: rgba(0, 0, 0, 10%);
+    background-color: #21366d70;
 }
 
-.round-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px;
-}
