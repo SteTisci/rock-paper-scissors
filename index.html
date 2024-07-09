@@ -8,17 +8,64 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="choices">
-        <button class="rock">✊</button>
-        <button class="paper">🤚</button>
-        <button class="scissors">✌️</button>
+    <header class="title-header">
+      <h1 class="title">Fire Grass Water</h1>
+    </header>
+    <main class="container">
+      <div class="general-info">
+        <h2 class="result">Choose your type</h2>
+        <h3 class="rounds">
+          First to reach 5 points wins the game<br />
+          <center>(draws doesn't count)</center>
+        </h3>
       </div>
       <div class="round-info">
-        <h1 class="result"></h1>
-        <p class="score"></p>
-        <p class="rounds"></p>
+        <div class="player-info">
+          <img
+            src="/images/question-mark.png"
+            class="player-choice"
+            width="100px"
+            height="auto"
+          />
+          <p class="player-score">Player: 0</p>
+        </div>
+        <div class="computer-info">
+          <img
+            src="/images/question-mark.png"
+            class="computer-choice"
+            width="100px"
+            height="auto"
+          />
+          <p class="computer-score">Computer: 0</p>
+        </div>
       </div>
-    </div>
+
+      <div class="choices">
+        <button class="fire">
+          <img
+            src="/images/fire.png"
+            alt="fire energy"
+            width="100px"
+            height="auto"
+          />
+        </button>
+        <button class="grass">
+          <img
+            src="/images/grass.png"
+            alt="grass energy"
+            width="100px"
+            height="auto"
+          />
+        </button>
+        <button class="water">
+          <img
+            src="/images/water.png"
+            alt="water energy"
+            width="100px"
+            height="auto"
+          />
+        </button>
+      </div>
+    </main>
   </body>
 </html>
