@@ -96,24 +96,24 @@ function showRoundInfo(roundResult) {
 function showRoundChoice(playerChoice, computerChoice) {
   switch (playerChoice) {
     case "fire":
-      playerChoiceImg.setAttribute("src", "/images/fire.png");
+      playerChoiceImg.setAttribute("src", "./images/fire.png");
       break;
     case "grass":
-      playerChoiceImg.setAttribute("src", "/images/grass.png");
+      playerChoiceImg.setAttribute("src", "./images/grass.png");
       break;
     case "water":
-      playerChoiceImg.setAttribute("src", "/images/water.png");
+      playerChoiceImg.setAttribute("src", "./images/water.png");
       break;
   }
   switch (computerChoice) {
     case "fire":
-      computerChoiceImg.setAttribute("src", "/images/fire.png");
+      computerChoiceImg.setAttribute("src", "./images/fire.png");
       break;
     case "grass":
-      computerChoiceImg.setAttribute("src", "/images/grass.png");
+      computerChoiceImg.setAttribute("src", "./images/grass.png");
       break;
     case "water":
-      computerChoiceImg.setAttribute("src", "/images/water.png");
+      computerChoiceImg.setAttribute("src", "./images/water.png");
   }
 }
 
