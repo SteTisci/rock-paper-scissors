@@ -13,13 +13,14 @@ function getComputerChoice() {
 }
 
 function checkWinner(playerChoice, computerChoice) {
+  let winner = "";
+
   // Possible outcomes for the player to win
   const winningConditions = {
     fire: "grass",
     water: "fire",
     grass: "water",
   };
-  let winner = "";
 
   if (winningConditions[playerChoice] === computerChoice) {
     winner = "player";
@@ -34,7 +35,6 @@ function checkWinner(playerChoice, computerChoice) {
 function resetScore() {
   playerScore = 0;
   computerScore = 0;
-  rounds = 0;
 }
 
 function playRound(playerChoice) {
@@ -42,41 +42,38 @@ function playRound(playerChoice) {
   if (!choices.includes(playerChoice)) return;
 
   const computerChoice = getComputerChoice();
-  let roundResult = "";
-
   roundWinner = checkWinner(playerChoice, computerChoice);
 
-  if (roundWinner === "tie") {
-    roundResult = "It's a tie";
-  } else if (roundWinner === "player") {
-    playerScore++;
-    roundResult = "You win!";
-  } else {
-    computerScore++;
-    roundResult = "You lose...";
+  switch (roundWinner) {
+    case "tie":
+      showRoundInfo("It's a tie");
+      break;
+    case "player":
+      playerScore++;
+      showRoundInfo("You win!");
+      break;
+    case "computer":
+      computerScore++;
+      showRoundInfo("You lose...");
+      break;
   }
   showRoundChoice(playerChoice, computerChoice);
-  showRoundInfo(roundResult);
-}
 
-function playGame(event) {
-  const buttonElement = event.target.closest("button");
-
-  // Check if buttonElement is not null before accessing its classList
-  if (!buttonElement) return;
-  const playerChoice = buttonElement.classList.value;
-
-  playRound(playerChoice);
-  let gameOver = playerScore === 5 || computerScore === 5;
-
-  // Check if the game is over after updating the scores
-  if (gameOver) {
+  // Check if the game is over before updating the scores
+  if (playerScore === 5 || computerScore === 5) {
     showGameResult();
     resetScore();
   }
 }
 
-choiceContainer.addEventListener("click", playGame);
+function playGame(event) {
+  const buttonElement = event.target.closest("button");
+
+  if (!buttonElement) return;
+  const playerChoice = buttonElement.classList.value;
+
+  playRound(playerChoice);
+}
 
 // User Interface
 
@@ -96,27 +93,8 @@ function showRoundInfo(roundResult) {
 }
 
 function showRoundChoice(playerChoice, computerChoice) {
-  switch (playerChoice) {
-    case "fire":
-      playerChoiceImg.setAttribute("src", "images/fire.png");
-      break;
-    case "grass":
-      playerChoiceImg.setAttribute("src", "images/grass.png");
-      break;
-    case "water":
-      playerChoiceImg.setAttribute("src", "images/water.png");
-      break;
-  }
-  switch (computerChoice) {
-    case "fire":
-      computerChoiceImg.setAttribute("src", "images/fire.png");
-      break;
-    case "grass":
-      computerChoiceImg.setAttribute("src", "images/grass.png");
-      break;
-    case "water":
-      computerChoiceImg.setAttribute("src", "images/water.png");
-  }
+  playerChoiceImg.setAttribute("src", `images/${playerChoice}.png`);
+  computerChoiceImg.setAttribute("src", `images/${computerChoice}.png`);
 }
 
 function showGameResult() {
@@ -125,3 +103,5 @@ function showGameResult() {
       ? "Congratulations! You won the game!"
       : "You lost... Better luck next time!";
 }
+
+choiceContainer.addEventListener("click", playGame);
