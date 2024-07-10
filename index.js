@@ -104,4 +104,8 @@ function showGameResult() {
       : "You lost... Better luck next time!";
 }
 
+//
+//  GAME EXECUTION
+//
+
 choiceContainer.addEventListener("click", playGame);
