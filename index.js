@@ -76,6 +76,8 @@ function playGame(event) {
   }
 }
 
+choiceContainer.addEventListener("click", playGame);
+
 // User Interface
 
 const choiceContainer = document.querySelector(".choices");
@@ -123,5 +125,3 @@ function showGameResult() {
       ? "Congratulations! You won the game!"
       : "You lost... Better luck next time!";
 }
-
-choiceContainer.addEventListener("click", playGame);
