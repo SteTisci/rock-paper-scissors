@@ -104,6 +104,10 @@ function showGameResult() {
       : "You lost... Better luck next time!";
 }
 
+// Date for the footer
+const date = new Date().getFullYear();
+document.querySelector(".author-name").innerHTML = `${date} SteTisci`;
+
 //
 //  GAME EXECUTION
 //
